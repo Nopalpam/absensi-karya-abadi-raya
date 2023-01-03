@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+    <!-- General CSS Files -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style-invoice.css">
+
+</head>
+
+<body>
+
+
+    <div class="invoice">
+        <page size="A4">
+            <div class="invoice-top mb-4">
+                <div class="invoice-header mb-4">
+                    <div class="invoice-container">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="img-logo">
+                                    <img src="logo-20221218212859.jpg" width="95px" alt="">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text text-right" style="margin-top: 2%;">
+                                    NO INVOICE 12145678
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="invoice-content">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="item-invoice">
+                                <div class="title">Tagihan Untuk</div>
+                                <div class="value mb-1">Michael jowerdan</div>
+                                <div class="desc">
+                                    Jl. Emerald Residence 1 No. 23 Sukajati, Karawang, Jawa Barat, 41373
+                                    <br> Contact Person : 082123432536
+                                    <br> Nomor MOU : 2834824724
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="item-invoice mb-2">
+                                <div class="title">Tanggal Tagihan</div>
+                                <div class="value">30 Desember 2022 12:22</div>
+                            </div>
+                            <div class="item-invoice">
+                                <div class="title">Tagihan Dari</div>
+                                <div class="value text-uppercase mb-1">CV Karya Abadi Raya</div>
+                                <div class="desc">
+                                    Jl. Arteri Pd. Indah, RT.10/RW.6, Kby. Lama Utara, Kec. Kby. Lama, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta
+                                    <br> Contact : 02834824724
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <div class="invoice-status text-uppercase text-center mb-2" style="background: #d1eaff;color: #275dae;">
+                                Total Tagihan
+                            </div>
+                            <div class="total-payment success">
+                                <div class="title">
+                                    Jumlah :
+                                </div>
+                                <div class="value mb-2">
+                                    Rp4.550.000,00
+                                </div>
+
+                                <div class="title-deadline">
+                                    Jumlah sudah termasuk PPN
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="invoice-middle">
+                <div class="invoice-container">
+
+                    <div class="invoice-table pt-2">
+                        <div class="title mb-3"><i class="fas fa-receipt" style="color:#005bbb;"></i>&nbsp; List Data</div>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="table-title">NO SPK</th>
+                                    <th scope="col" class="table-title">TANGGAL SERVICE</th>
+                                    <th scope="col" class="table-title">JENIS PEKERJAAN</th>
+                                    <th scope="col" class="text-right table-title">HARGA</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="table-value">SPK-Suzuki301220227471</td>
+                                    <td class="table-value">2022-12-22</td>
+                                    <td class="table-value">AC Service</td>
+                                    <td class="text-right table-value font-weight-bold">Rp1.000.000,00</td>
+                                </tr>
+                                <tr>
+                                    <td class="table-value">SPK-Suzuki291220224209</td>
+                                    <td class="table-value">2022-11-15</td>
+                                    <td class="table-value">AC Service,Car Wash</td>
+                                    <td class="text-right table-value font-weight-bold">Rp3.500.000,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <hr class="mt-4">
+
+                    <div class="invoice-table mb-2">
+                        <div class="title mb-2"><i class="fas fa-receipt" style="color:#005bbb;"></i>&nbsp; Rincian Tagihan</div>
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="pl-0 table-title">DESKRIPSI</th>
+                                    <th scope="col" class="pl-0 text-right table-title">TOTAL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="pl-0 table-value">Deskripsi invoice tersedia disini, diinput saat melakukan proses cetak Invoice</td>
+                                    <td class="pl-0 text-right table-value font-weight-bold">Rp4.500.000,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="invoice-note">
+                                    <div class="title mb-2"><i class="fas fa-sticky-note" style="color:#f8981c"></i>&nbsp; Catatan</div>
+                                    <div class="desc">
+                                        <ul>
+                                            <li> Biaya PPN atau Pajak sebesar <b>11%</b> sesuai dengan total harga keseluruhan.</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <table class="table table-borderless">
+                                    <tbody>
+                                        <tr>
+                                            <td class="pl-0 table-value">Sub Total</td>
+                                            <td class="pl-0 text-right table-value font-weight-bold">Rp4.500.000,00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pl-0 table-value">PPN</td>
+                                            <td class="pl-0 text-right table-value font-weight-bold">Rp50.000,00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pl-0 table-value">Total Pembayaran</td>
+                                            <td class="pl-0 text-right table-value font-weight-bold">Rp4.550.000,00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </page>
+    </div>
+
+
+</body>
+
+<!-- General JS Scripts -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+</html>

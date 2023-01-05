@@ -35,14 +35,56 @@ class InvoiceController extends Controller
         ->addColumn('brand', function ($transaksi_service) {
             return $transaksi_service->jpekerjaan;
         })
+        ->addColumn('jenis_pekerjaan', function ($transaksi_service) {
+            $varreturn = '';
+            $data = JenisPekerjaan::whereIn('id_jenis_pekerjaan', explode(',', $transaksi_service->jenis_pekerjaan))->get();
+            foreach ($data as $ddata) {
+                if($data->first() == $ddata) {
+                    $varreturn .= '';
+                } else {
+                    $varreturn .= ', ';
+                }
+                $varreturn .= $ddata->nama_pekerjaan;
+                if($data->last() == $ddata) {
+
+                    if($transaksi_service->pekerjaan_lainnya != '-'){
+                        $varreturn .= ', '.$transaksi_service->pekerjaan_lainnya;
+                    }
+                }
+            }
+            return $varreturn;
+        })
+        ->addColumn('harga', function ($transaksi_service) {
+            $varreturn = '';
+            $data = JenisPekerjaan::whereIn('id_jenis_pekerjaan', explode(',', $transaksi_service->jenis_pekerjaan))->get();
+            $sum_tot_Price = 0;
+            foreach ($data as $ddata) {
+                $sum_tot_Price += removeString($ddata->harga);
+                if($data->last() == $ddata) {
+                    $sum_tot_Price_total = ((int)$sum_tot_Price  + (int)removeString($transaksi_service->harga));
+                    $varreturn .= 'Rp. '.formatRupiah($sum_tot_Price_total);
+                }
+            }
+            return $varreturn;
+        })
         ->addColumn('aksi', function ($transaksi_service) {
+            $varreturn = '';
+            $data = JenisPekerjaan::whereIn('id_jenis_pekerjaan', explode(',', $transaksi_service->jenis_pekerjaan))->get();
+            $sum_tot_Price = 0;
+            foreach ($data as $ddata) {
+                $sum_tot_Price += removeString($ddata->harga);
+                if($data->last() == $ddata) {
+                    $sum_tot_Price_total = ((int)$sum_tot_Price  + (int)removeString($transaksi_service->harga));
+                    $varreturn .= $sum_tot_Price_total;
+                }
+            }
             return '
             <div class="btn-group">
-                <button onclick="getsingledata('.$transaksi_service->id_transaksi_service.')" class="btn btn-sm btn-success btn-flat" title="Cetak Invoice"><i class="fa fa-book"></i></button>
+                <button onclick="getsingledata('.$transaksi_service->id_transaksi_service.','.$varreturn.')" class="btn btn-sm btn-success btn-flat" title="Cetak Invoice"><i class="fa fa-book"></i></button>
             </div>
             ';
         })
-        ->rawColumns(['aksi'])
+        ->rawColumns(['aksi','jenis_pekerjaan','harga'])
         ->make(true);
     }
 
@@ -86,6 +128,9 @@ class InvoiceController extends Controller
         $store->nama_bank = $request->nama_bank;
         $store->npwp = $request->npwp;
         $store->top = $request->top;
+        $store->harga_pure = $request->harga;
+        $store->harga_ppn = $request->harga * 0.11;
+        $store->harga_total = $request->harga * 0.11 + $request->harga;
         $store->save();
 
         TransaksiService::whereIn('id_transaksi_service', explode(',', $request->id_transaksiservice))

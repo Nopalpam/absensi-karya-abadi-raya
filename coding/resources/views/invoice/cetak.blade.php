@@ -222,8 +222,8 @@
                                         </tr>
                                         <tr>
                                             <td class="pl-0 table-value">Total Pembayaran</td>
-                                            <td class="pl-0 text-right table-value font-weight-bold">{{ 'Rp. '.formatRupiah($sum_tot_Price_Sum_ppn+$sum_tot_Price_Sum_ppn) }}</td>
-                                            <input type="hidden" id="TotalPembayaran" value="{{ 'Rp. '.formatRupiah($sum_tot_Price_Sum_ppn+$sum_tot_Price_Sum_ppn) }}">
+                                            <td class="pl-0 text-right table-value font-weight-bold">{{ 'Rp. '.formatRupiah($sum_tot_Price_Sum_ppn+$sum_tot_Price_Sum) }}</td>
+                                            <input type="hidden" id="TotalPembayaran" value="{{ 'Rp. '.formatRupiah($sum_tot_Price_Sum_ppn+$sum_tot_Price_Sum) }}">
                                         </tr>
                                     </tbody>
                                 </table>

@@ -22,6 +22,7 @@
                 <div class="modal-body">
                     <input type="hidden" name="id_transaksiservice" id="id_transaksiservice" class="form-control" autocomplete="off">
                     <div class="form-group row">
+                        <input type="hidden" name="harga">
                         <label for="desc" class="col-lg-2 col-lg-offset-1 control-label">Deskripsi</label>
                         <div class="col-lg-6">
                             <textarea name="desc" id="desc" cols="30" rows="10" class="form-control" required autofocus autocomplete="off"></textarea>

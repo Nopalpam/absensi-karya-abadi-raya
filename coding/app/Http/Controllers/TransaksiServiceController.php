@@ -25,7 +25,7 @@ class TransaksiServiceController extends Controller
     public function data()
     {
         // data transaksi_service absesnsi //
-        $transaksi_service = TransaksiService::orderby('id_transaksi_service', 'desc')
+        $transaksi_service = TransaksiService::where('status', '0')->orderby('id_transaksi_service', 'desc')
         ->get();
         // $getbrand1 = '';
         // if(DB::table('tb_jenis_pekerjaan')->select('brand_lainnya')->where('id_jenis_pekerjaan', '=', '1')->value('brand_lainnya') != null){

@@ -54,21 +54,25 @@ class SettlementController extends Controller
             } else {
                 $actionBtn.=
                 '
-                <button onclick="paidform(`'. route('settlement.updateStatus', $settlement->id_settlement) .'`)" class="btn btn-sm btn-success btn-flat" title="Ubah Status" style="margin: 0px 10px 10px 0px;padding-bottom: 8px;padding-top: 8px;"><i class="fa fa-money"></i></button>
+                <button onclick="paidform(`'. route('settlement.updateStatus', $settlement->id_settlement) .'`)" class="btn btn-sm btn-success btn-flat" title="Ubah Status" style="margin: 0px 10px 10px 0px;">Ubah Status &nbsp; <i class="fa fa-money"></i></button>
                 ';
             }
 
-            if ($settlement->status_cetak == '1') {
-                $actionBtn.=
+            // if ($settlement->status_cetak == '1') {
+            //     $actionBtn.=
+            //     '
+            //     <a href="'. route('settlement.view_pdf_full', $settlement->id_invoice) .'" target="_blank" class="btn btn-sm btn-primary btn-flat" style="margin: 0px 10px 10px 0px;">Lihat Invoice &nbsp; <i class="fa fa-eye"></i></a>
+            //     ';
+            // } else {
+            //     $actionBtn.=
+            //     '
+            //     <button onclick="finishForm(`'. route('settlement.updatefinish', $settlement->id_settlement) .'`)" class="btn btn-sm btn-primary btn-flat" title="Cetak Invoice" style="margin: 0px 10px 10px 0px;padding-bottom: 8px;padding-top: 8px;"><i class="fa fa-print"></i></button>
+            //     ';
+            // }
+            $actionBtn.=
                 '
                 <a href="'. route('settlement.view_pdf_full', $settlement->id_invoice) .'" target="_blank" class="btn btn-sm btn-primary btn-flat" style="margin: 0px 10px 10px 0px;">Lihat Invoice &nbsp; <i class="fa fa-eye"></i></a>
                 ';
-            } else {
-                $actionBtn.=
-                '
-                <button onclick="finishForm(`'. route('settlement.updatefinish', $settlement->id_settlement) .'`)" class="btn btn-sm btn-primary btn-flat" title="Cetak Invoice" style="margin: 0px 10px 10px 0px;padding-bottom: 8px;padding-top: 8px;"><i class="fa fa-print"></i></button>
-                ';
-            }
             return '<div class="btn-group">'.$actionBtn.'</div>';
         })
         ->addColumn('top', function ($settlement) {
@@ -211,10 +215,12 @@ class SettlementController extends Controller
     public function view_pdf(Request $request, $id) {
         $getTransaksiServiceId = Settlement::select('id_transaksi_services')->where('id_invoice', '=', $id)->value('id_transaksi_services');
     	$data = TransaksiService::whereIn('id_transaksi_service', explode(',', $getTransaksiServiceId))->get();
-        $pdf = PDF::loadView('invoice/cetaknoui', ['data'=>$data,'id'=>$id])
-        ->setPaper('a4');
-        $pdf->setOption('enable-local-file-access', true);
-        return $pdf->stream('invoice_'.$id.'.pdf');
+        // $pdf = PDF::loadView('invoice/cetaknoui', ['data'=>$data,'id'=>$id])
+        // ->setPaper('a4');
+        // $pdf->setOption('enable-local-file-access', true);
+        // return $pdf->stream('invoice_'.$id.'.pdf');
+
+        return view('invoice.cetaknoui_blade', ['data'=>$data,'id'=>$id]);
     }
 
     public function view_pdf_full(Request $request, $id) {

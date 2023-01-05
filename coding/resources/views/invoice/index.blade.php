@@ -55,6 +55,8 @@ List Invoice
                     <th>Tanggal Service</th>
                     <th>Nama Customer</th>
                     <th>Nama Teknisi</th>
+                    <th>Jenis Pekerjaan</th>
+                    <th>Harga</th>
                     <th>Aksi</th>
                 </thead>
             </table>
@@ -95,6 +97,8 @@ $(function () {
             {data: 'tanggal_service'},
             {data: 'nama_customer'},
             {data: 'nama_teknisi'},
+            {data: 'jenis_pekerjaan'},
+            {data: 'harga'},
             {data: 'aksi', searchable: false, sortable: false},
         ],
         select: {
@@ -129,12 +133,24 @@ $(".getcheckboxdata").click(function(e){
     var rows = oTable.rows( { selected: true } ).count();
     var selected_rows = oTable.rows( {selected: true} ).data(0);
     var selected_ids = [];
+    var selected_harga = [];
     for (i=0; i < rows; i++) {
         var reduced_object = selected_rows[i]['id_transaksi_service'];
         selected_ids.push(reduced_object);
+        // harga
+        var reduced_object_harga = $.parseJSON(selected_rows[i]['harga'].replace(/\D/g,''));
+        selected_harga.push(reduced_object_harga);
     };
 
-    // console.log(selected_ids);
+    // console.log(selected_harga);
+
+    var myTotal = 0;
+
+    for(var i=0, len=selected_harga.length; i<len; i++){
+        myTotal += selected_harga[i];
+    }
+
+    console.log(myTotal);
 
     if(rows > 0){
     $('#modal-form').modal('show');
@@ -144,13 +160,14 @@ $(".getcheckboxdata").click(function(e){
     $('#modal-form form')[0].reset();
     $('#modal-form [name=prefix]').focus();
     $('#modal-form [name=id_transaksiservice]').val(selected_ids);
+    $('#modal-form [name=harga]').val(myTotal);
     } else {
         alert('Silahkan ceklis data yang ingin di pilih!');
     }
 
 });
 
-function getsingledata(id_transaksi_service) {
+function getsingledata(id_transaksi_service,harga) {
     $('#modal-form').modal('show');
     $('#modal-form .modal-title').text('Cetak Invoice');
     $('#modal-form form').attr('action', url);
@@ -158,6 +175,7 @@ function getsingledata(id_transaksi_service) {
     $('#modal-form form')[0].reset();
     $('#modal-form [name=prefix]').focus();
     $('#modal-form [name=id_transaksiservice]').val(id_transaksi_service);
+    $('#modal-form [name=harga]').val(harga);
 
     // console.log(id_transaksi_service);
 

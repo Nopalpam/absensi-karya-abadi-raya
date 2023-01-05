@@ -77,7 +77,7 @@
     <h6 style="text-align:right">Sub Total : {{ 'Rp. '.formatRupiah($sum_tot_Price_Sum) }}</h6>
     <h6 style="text-align:right">PPN : {{ 'Rp. '.formatRupiah($sum_tot_Price_Sum_ppn) }}</h6>
     <hr>
-    <h4 style="text-align:right" id="TotalPembayaran">Total Pembayaran : {{ 'Rp. '.formatRupiah($sum_tot_Price_Sum_ppn+$sum_tot_Price_Sum_ppn) }}</h4>
+    <h4 style="text-align:right" id="TotalPembayaran">Total Pembayaran : {{ 'Rp. '.formatRupiah($sum_tot_Price_Sum_ppn+$sum_tot_Price_Sum) }}</h4>
     @else
     <hr>
 	<center>

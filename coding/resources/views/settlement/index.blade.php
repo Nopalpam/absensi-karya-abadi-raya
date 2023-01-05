@@ -1,11 +1,12 @@
 @extends('layouts.master')
 
 @section('title')
-List Invoice
+List Settlement
 @endsection
 
 @push('css')
 <link rel="stylesheet" href="https://cdn.datatables.net/select/1.5.0/css/select.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css">
 <style>
 .text-successnew{
     color: #1ac91d
@@ -16,12 +17,15 @@ List Invoice
 .font-weight-bold{
     font-weight: bold
 }
+div.dt-buttons{
+    margin-right: 20px;
+}
 </style>
 @endpush
 
 @section('breadcrumb')
     @parent
-    <li class="active">List Invoice</li>
+    <li class="active">List Settlement</li>
 @endsection
 @php
     $nip = isset($_GET['nip'])?$_GET['nip'] : null;
@@ -29,7 +33,7 @@ List Invoice
 @section('content')
 <div class="box box-primary">
     <div class="box-header with-border">
-        <h3 class="box-title">List Invoice</h3>
+        <h3 class="box-title">List Settlement</h3>
         <div class="box-tools">
         </div>
     </div>
@@ -43,6 +47,7 @@ List Invoice
                     <th>Created at</th>
                     <th>Updated at</th>
                     <th>TOP</th>
+                    <th>Harga Total</th>
                     <th>Aksi</th>
                 </thead>
             </table>
@@ -53,10 +58,59 @@ List Invoice
 @includeIf('settlement.form')
 @push('scripts')
 <script src="https://cdn.datatables.net/select/1.5.0/js/dataTables.select.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/dataTables.buttons.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.flash.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.html5.min.js" type="text/javascript"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.5/js/buttons.print.min.js" type="text/javascript"></script>
+<script>
+    function formatRupiah(angka, prefix) {
+        var number_string = angka.replace(/[^,\d]/g, "").toString(),
+            split = number_string.split(","),
+            sisa = split[0].length % 3,
+            rupiah = split[0].substr(0, sisa),
+            ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if (ribuan) {
+            separator = sisa ? "." : "";
+            rupiah += separator + ribuan.join(".");
+        }
+
+        rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
+        return prefix == undefined ? rupiah : rupiah ? "Rp. " + rupiah : "";
+    }
+</script>
 <script>
 let table;
 $(function () {
     table = $('.table').DataTable({
+        dom: "Blfrtip",
+        buttons: [
+            // {
+            //     text: 'Export CSV',
+            //     extend: 'csvHtml5',
+            //     title: 'Settlement_CSV',
+            //     exportOptions: {
+            //         columns: [ 1, 2, 3, 4, 5, 6 ]
+            //     }
+            // },
+            {
+                text: 'Export Excel',
+                extend: 'excelHtml5',
+                title: 'Settlement_Excel',
+                filename: function () {
+                    var d = new Date();
+                    var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+                    return strDate + '_Settlement_Excel';
+                },
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5, 6 ]
+                }
+            },
+        ],
         processing: true,
         autoWidth: false,
         ajax: {
@@ -64,7 +118,7 @@ $(function () {
         },
         columnDefs: [ {
             orderable: false,
-            className: 'select-checkbox',
+            // className: 'select-checkbox',
             targets:   0
         } ],
         columns: [
@@ -90,6 +144,11 @@ $(function () {
                 }
             },
             {data: 'top', searchable: false, sortable: false},
+            {data: 'harga_total',
+                render: function(data, type, row) {
+                    return formatRupiah(data, "Rp. ");
+                }
+            },
             {data: 'aksi', searchable: false, sortable: false},
         ],
         select: {
